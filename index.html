@@ -1,43 +1,122 @@
-<!-- TODO 1: Create the HTML Boilerplate -->
-<!Doctype html>
+<!doctype html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Morgan's Portfolio</title>
+        <title>Morgan Waddington — Portfolio</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="./assets/styles.css">
     </head>
     <body>
-        <h1>Morgan's Portfolio</h1>
-        <h2>I am a CS student completing my master's @ NYU</h2>
-        <hr>
-            <h3><a href="./public/movie_ranking.html">Movie Ranking Project</a></h3>
-            <img src="./assets/images/ranking.png" alt="movie ranking" height="300">
-        <br>
-            <a href="./public/bd_invite.html"><h3>Birthday Invite Project</h3></a>
-            <img src="./assets/images/bd.png" height="300">
-        <hr>
+        <header class="site-header">
+            <nav class="nav">
+                <a class="logo" href="#home">MW</a>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#ai-ml">AI/ML</a></li>
+                    <li><a href="#game-design">Game Design</a></li>
+                    <li><a href="#data-viz">Data Visualization</a></li>
+                    <li><a href="#cloud">Cloud (AWS)</a></li>
+                </ul>
+            </nav>
+        </header>
 
-        <a href="./public/about.html">About me</a> <a href="./public/contact.html">Contact me</a>
+        <main id="home" class="hero">
+            <div class="hero-inner">
+                <img class="avatar" src="./assets/images/photoOfme.png" alt="Photo of Morgan Waddington">
+                <div class="intro">
+                    <h1>Hi, I'm Morgan Waddington</h1>
+                    <p class="tagline">I spent 6 years on Wall Street working in bond securitization and real estate asset management. Wanting to become more technically skilled and pivot toward AI, I enrolled in a Master's program in Computer Science at NYU. I'm now building systems that combine my financial domain expertise with modern AI and cloud technologies.</p>
+                    <div class="cta-group">
+                        <a class="btn primary" href="#ai-ml">Explore my work</a>
+                        <a class="btn" href="./public/contact.html">Get in touch</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <section id="ai-ml" class="section">
+            <div class="section-inner">
+                <h2 class="section-title">AI / Deep Learning / Machine Learning</h2>
+                <p class="section-lead">Modeling, training, evaluation, and deployment. From prototypes to production.</p>
+                <div class="cards">
+                    <a class="card" href="./public/movie_ranking.html">
+                        <h3 class="card-title">Recommendation Ranking</h3>
+                        <p class="card-body">Ranking system exploration and evaluation. Feature engineering, metrics, and UX insights.</p>
+                    </a>
+                    <a class="card" href="#">
+                        <h3 class="card-title">Computer Vision</h3>
+                        <p class="card-body">Image classification and detection experiments with transfer learning.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="game-design" class="section alt">
+            <div class="section-inner">
+                <h2 class="section-title">Game Design</h2>
+                <p class="section-lead">Mechanics, feel, and systems design. Player‑centric experiences.</p>
+                <div class="cards">
+                    <a class="card" href="./public/bd_invite.html">
+                        <h3 class="card-title">Interactive Prototype</h3>
+                        <p class="card-body">A playful interaction concept exploring timing and feedback loops.</p>
+                    </a>
+                    <a class="card" href="#">
+                        <h3 class="card-title">Level Design Toolkit</h3>
+                        <p class="card-body">Procedural tools for rapid iteration and testing.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="data-viz" class="section">
+            <div class="section-inner">
+                <h2 class="section-title">Data Visualization</h2>
+                <p class="section-lead">Turning complex datasets into clear, compelling narratives.</p>
+                <div class="cards">
+                    <a class="card" href="#">
+                        <h3 class="card-title">Interactive Dashboards</h3>
+                        <p class="card-body">Responsive dashboards with drill‑downs and storytelling layouts.</p>
+                    </a>
+                    <a class="card" href="#">
+                        <h3 class="card-title">Exploratory Analysis</h3>
+                        <p class="card-body">From data cleaning to insight delivery with reproducible notebooks.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="cloud" class="section alt">
+            <div class="section-inner">
+                <h2 class="section-title">Cloud Computing — AWS</h2>
+                <p class="section-lead">Scalable infrastructure, MLOps, and cost‑aware deployments.</p>
+                <div class="cards">
+                    <a class="card" href="#">
+                        <h3 class="card-title">MLOps Pipelines</h3>
+                        <p class="card-body">Training and inference pipelines with CI/CD, containers, and monitoring.</p>
+                    </a>
+                    <a class="card" href="#">
+                        <h3 class="card-title">Serverless APIs</h3>
+                        <p class="card-body">Event‑driven services with AWS Lambda, API Gateway, and DynamoDB.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <span>© <span id="year"></span> Morgan Waddington</span>
+                <span class="footer-links">
+                    <a href="./public/about.html">About</a>
+                    <a href="./public/contact.html">Contact</a>
+                </span>
+            </div>
+        </footer>
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+        </script>
     </body>
 </html>
-
-<!-- TODO 2: Add Your previous projects' HTML into the public folder -->
-<!-- done -->
-
-<!-- TODO 3: Take screenshots of your project previews and add the images to the images folder -->
-<!-- done -->
-
-<!-- TODO 4: Add titles/subtitles etc. -->
-<!-- done -->
-
-<!-- TODO 5: Add a link to the project pages -->
-<!-- done -->
-
-<!-- TODO 6: Add images to show the project previews
-HINT for TODO 6: You can use the height attribute set to 200 to make the image smaller:
-https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attr-height -->
-<!-- done -->
-
-<!-- TODO 7: Add the Contact Me and About Me page links -->
-<!-- done -->
 
