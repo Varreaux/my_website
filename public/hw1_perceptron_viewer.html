@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perceptron and Adaline Classifiers — Morgan Waddington</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/styles.css">
+    <style>
+        .notebook-wrapper {
+            padding: 40px 20px;
+            background: var(--bg);
+        }
+        
+        .notebook-iframe {
+            width: 100%;
+            min-height: 800px;
+            border: none;
+            background: var(--bg);
+        }
+        
+        .notebook-header {
+            max-width: 1200px;
+            margin: 0 auto 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .notebook-header h1 {
+            margin: 0 0 8px;
+            font-size: 28px;
+            letter-spacing: -0.2px;
+        }
+        
+        .notebook-header p {
+            margin: 0;
+            color: var(--muted);
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav">
+            <a class="logo" href="../index.html">MW</a>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#ai-ml">AI/ML</a></li>
+                <li><a href="../index.html#game-design">Game Design</a></li>
+                <li><a href="../index.html#data-viz">Data Visualization</a></li>
+                <li><a href="../index.html#cloud">Cloud (AWS)</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="notebook-wrapper">
+        <div class="notebook-header">
+            <h1>Perceptron and Adaline Classifiers</h1>
+            <p>From‑scratch implementations of Perceptron and Adaline binary classifiers trained on the Iris dataset. Explores both linearly separable (Iris-setosa vs. others) and non‑linearly separable (versicolor vs. virginica) classification tasks across different feature combinations. Achieved 92–100% test accuracy depending on data separability, with Adaline demonstrating superior convergence through gradient descent optimization. Includes visualizations of training progress, decision boundaries, and comparative analysis of learning rates, feature importance, and model convergence behavior.</p>
+        </div>
+        <iframe class="notebook-iframe" src="./hw1_perceptron.html" title="Notebook Viewer"></iframe>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <span>© <span id="year"></span> Morgan Waddington</span>
+            <span class="footer-links">
+                <a href="./about.html">About</a>
+                <a href="./contact.html">Contact</a>
+            </span>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
