@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AI / Deep Learning / Machine Learning — Morgan Waddington</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/styles.css">
+    </head>
+    <body>
+        <header class="site-header">
+            <nav class="nav">
+                <a class="logo" href="../index.html">MW</a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#ai-ml">AI/ML</a></li>
+                    <li><a href="../index.html#game-design">Game Design</a></li>
+                    <li><a href="../index.html#data-viz">Data Visualization</a></li>
+                    <li><a href="../index.html#cloud">Cloud (AWS)</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="section">
+            <div class="section-inner">
+                <h1 class="section-title">AI / Deep Learning / Machine Learning</h1>
+                <p class="section-lead">Modeling, training, evaluation, and deployment. From prototypes to production.</p>
+                <div class="cards">
+                    <a class="card" href="./hw1_perceptron_viewer.html">
+                        <h3 class="card-title">Perceptron & Adaline Models</h3>
+                        <p class="card-body">Implementation of Perceptron and Adaline classifiers from scratch. Includes visualizations, convergence analysis, and experiments with linearly separable and non-linearly separable Iris dataset classifications.</p>
+                    </a>
+                    <a class="card" href="https://github.com/Varreaux/Artificial_Inteligence_Projects/tree/main/AI%20project%201" target="_blank" rel="noopener noreferrer">
+                        <h3 class="card-title">A* Pathfinding Algorithm</h3>
+                        <p class="card-body">Implemented A* search algorithm for 8-directional pathfinding on a grid with angle-change penalties. Optimizes pathfinding by balancing distance costs and smoothness constraints.</p>
+                    </a>
+                    <a class="card" href="https://github.com/Varreaux/Artificial_Inteligence_Projects/tree/main/AI%20project%202" target="_blank" rel="noopener noreferrer">
+                        <h3 class="card-title">Kropki Sudoku Solver (CSP)</h3>
+                        <p class="card-body">Constraint Satisfaction Problem solver for Kropki Sudoku variants. Uses backtracking with MRV and degree heuristics, forward checking, and constraint propagation to solve puzzles with dot-based neighbor constraints.</p>
+                    </a>
+                    <a class="card" href="https://github.com/Varreaux/Artificial_Inteligence_Projects/tree/main/AI%20project%203" target="_blank" rel="noopener noreferrer">
+                        <h3 class="card-title">8-Puzzle Solver (A*)</h3>
+                        <p class="card-body">A* algorithm implementation for solving the classic 8-puzzle problem. Features Manhattan distance and Linear Conflict heuristics, with graph search optimization for finding optimal solutions to sliding tile puzzles.</p>
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <span>© <span id="year"></span> Morgan Waddington</span>
+                <span class="footer-links">
+                    <a href="./about.html">About</a>
+                    <a href="./contact.html">Contact</a>
+                </span>
+            </div>
+        </footer>
+
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+        </script>
+    </body>
+</html>
+

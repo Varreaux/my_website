@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mind Grabber — Morgan Waddington</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/styles.css">
+    </head>
+    <body>
+        <header class="site-header">
+            <nav class="nav">
+                <a class="logo" href="../index.html">MW</a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#ai-ml">AI/ML</a></li>
+                    <li><a href="../index.html#game-design">Game Design</a></li>
+                    <li><a href="../index.html#data-viz">Data Visualization</a></li>
+                    <li><a href="../index.html#cloud">Cloud (AWS)</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="section alt">
+            <div class="section-inner">
+                <h1 class="section-title">Mind Grabber</h1>
+                <p class="section-lead">Behavior-Based Action Platformer</p>
+                
+                <div class="project-content">
+                    <p style="margin-bottom: 24px;">Click <a href="https://rinshinozaki.itch.io/mind-grabber" target="_blank" rel="noopener noreferrer" style="color: var(--brand); text-decoration: underline;">HERE</a> to play the game on itch. It's browser-based, so very easy to play.</p>
+                    
+                    <div class="video-container" style="margin-bottom: 32px;">
+                        <video controls width="100%" style="max-width: 100%; border-radius: 14px; box-shadow: 0 10px 24px rgba(0,0,0,0.1);">
+                            <source src="../assets/videos/mind-grabber demo.mov" type="video/quicktime">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    
+                    <p>A 2D action platformer built in Godot that explores a modular behavior system where players can steal and equip enemy abilities. The goal was to design a system where combat encounters teach new mechanics and expand player options.</p>
+                    
+                    <p>The core mechanic is a hand-grabbing system: players can grab behaviors from defeated enemies and equip them. Behaviors use condition-action pairs that control enemy AI, and players can mix and match them. The experience/leveling system increases behavior capacity, encouraging experimentation.</p>
+                    
+                    <p class="video-title">Ability grabbing prototype (player-green / ai-red):</p>
+                    <div class="video-container">
+                        <video controls width="100%" style="max-width: 100%; border-radius: 14px; box-shadow: 0 10px 24px rgba(0,0,0,0.1);">
+                            <source src="../assets/videos/mind grabber prototype.mov" type="video/quicktime">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    
+                    <p>I implemented the behavior architecture using inheritance patterns, allowing easy addition of new behaviors. The system needed to work for both enemy AI and player abilities.</p>
+                    
+                    <p>The game features procedural room generation using BSP algorithms that recursively split rooms, carve corridors between layers, and spawn ladders and doors.</p>
+                    
+                    <p>The hand-grabbing mechanic required precise collision detection and state management, tracking when the hand is shooting, returning, or holding a behavior, and ensuring smooth transitions between states.</p>
+                    
+                    <p>This project reinforced the value of modular, extensible architecture. Designing the behavior system to be reusable for both enemies and players made the codebase cleaner and easier to iterate on. It also highlighted how player progression can be tied directly to gameplay mechanics rather than just stats.</p>
+                </div>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <span>© <span id="year"></span> Morgan Waddington</span>
+                <span class="footer-links">
+                    <a href="./about.html">About</a>
+                    <a href="./contact.html">Contact</a>
+                </span>
+            </div>
+        </footer>
+
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+        </script>
+    </body>
+</html>
+

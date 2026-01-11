@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Play the Game — Morgan Waddington</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/styles.css">
+    </head>
+    <body>
+        <header class="site-header">
+            <nav class="nav">
+                <a class="logo" href="../index.html">MW</a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#ai-ml">AI/ML</a></li>
+                    <li><a href="../index.html#game-design">Game Design</a></li>
+                    <li><a href="../index.html#data-viz">Data Visualization</a></li>
+                    <li><a href="../index.html#cloud">Cloud (AWS)</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="section alt">
+            <div class="section-inner">
+                <h1 class="section-title">Play the Game</h1>
+                <p class="section-lead">Resource Management Strategy Game</p>
+                
+                <div class="project-content">
+                    <p style="margin-bottom: 24px;">Click <a href="https://morgan-w.itch.io/play-the-game" target="_blank" rel="noopener noreferrer" style="color: var(--brand); text-decoration: underline;">HERE</a> to play the game on itch. It's browser-based, so very easy to play.</p>
+                    
+                    <div class="video-container" style="margin-bottom: 32px;">
+                        <video controls width="100%" style="max-width: 100%; border-radius: 14px; box-shadow: 0 10px 24px rgba(0,0,0,0.1);">
+                            <source src="../assets/videos/play_the_game.mov" type="video/quicktime">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    
+                    <p>A card-based life simulation built in Godot that explores decision-making under uncertainty. Players manage four resources across four life stages, making choices from event cards that affect their stats. The point of the game is not to fall below zero for any of your four stats.</p>
+                    
+                    <p>The core mechanic is progressive information hiding: as players advance through each stage, card information becomes obscured using shader-based blur effects. Early cards show full information, mid-stage cards blur only the stat effects, and late-stage cards blur both description and effects. This reflects how real-life decisions often have uncertain outcomes.</p>
+                    
+                    <p>This ended up being a solo project where I implemented virtually everything. The blur system in particular was interesting, using custom shaders applied to UI elements based on game state. The multi-resource tracking system is an exercise in careful balancing to ensure no single stat could be completely ignored, while the stage progression system filtered cards dynamically based on the current life stage.</p>
+                    
+                    <p>The typing animation system for narrative was to add a layer of presentation and a 'slow' reveal of the choice you made. Win/lose condition checking needed to track multiple failure states and provide meaningful feedback about which resource caused failure.</p>
+                    
+                    <p>This project highlighted how information design affects gameplay. The progressive blur creates tension and forces players to make decisions with incomplete information.</p>
+                </div>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <span>© <span id="year"></span> Morgan Waddington</span>
+                <span class="footer-links">
+                    <a href="./about.html">About</a>
+                    <a href="./contact.html">Contact</a>
+                </span>
+            </div>
+        </footer>
+
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+        </script>
+    </body>
+</html>
+

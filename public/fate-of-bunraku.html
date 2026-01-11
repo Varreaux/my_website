@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Fate of Bunraku — Morgan Waddington</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/styles.css">
+    </head>
+    <body>
+        <header class="site-header">
+            <nav class="nav">
+                <a class="logo" href="../index.html">MW</a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#ai-ml">AI/ML</a></li>
+                    <li><a href="../index.html#game-design">Game Design</a></li>
+                    <li><a href="../index.html#data-viz">Data Visualization</a></li>
+                    <li><a href="../index.html#cloud">Cloud (AWS)</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="section">
+            <div class="section-inner">
+                <h1 class="section-title">Fate of Bunraku</h1>
+                <p class="section-lead">A 3D horror / puzzle game.</p>
+                
+                <div class="project-content">
+                    <p style="margin-bottom: 24px;">Click <a href="https://rinshinozaki.itch.io/fate-of-bunraku" target="_blank" rel="noopener noreferrer" style="color: var(--brand); text-decoration: underline;">HERE</a> to play the game on itch. It's browser-based, so very easy to play.</p>
+                    
+                    <div class="video-container" style="margin-bottom: 32px;">
+                        <video controls width="100%" style="max-width: 100%; border-radius: 14px; box-shadow: 0 10px 24px rgba(0,0,0,0.1);">
+                            <source src="../assets/videos/bunraku demo1.mov" type="video/quicktime">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    
+                    <div class="video-container" style="margin-bottom: 32px;">
+                        <video controls width="100%" style="max-width: 100%; border-radius: 14px; box-shadow: 0 10px 24px rgba(0,0,0,0.1);">
+                            <source src="../assets/videos/bunraku demo2.mov" type="video/quicktime">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    
+                    <p>A 3D first-person adventure/puzzle game built in Godot 4 for a game design course. It was my first 3D project after working mainly in 2D (roguelikes, strategy, turn-based), and I wanted to explore horror through atmosphere and environmental storytelling.</p>
+                    
+                    <div class="project-image" style="margin-bottom: 32px;">
+                        <img src="../assets/images/bunraku/scary.png" alt="Fate of Bunraku scene" style="width: 100%; max-width: 100%; border-radius: 14px; box-shadow: 0 10px 24px rgba(0,0,0,0.1);">
+                    </div>
+                    
+                    <p>The game draws from Japanese Bunraku theater and tragic romance, reimagined as horror. The team researched traditional theater structures, themes, and cultural symbolism, then adapted them into a playable experience.</p>
+                    
+                    <div class="project-images-grid">
+                        <img src="../assets/images/bunraku/wakaotoko.png" alt="Wakaotoko" class="project-image-item">
+                        <img src="../assets/images/bunraku/dressing.png" alt="Dressing" class="project-image-item">
+                        <img src="../assets/images/bunraku/neutral.png" alt="Neutral" class="project-image-item">
+                    </div>
+                    
+                    <p>My role covered environmental interactions, object manipulation, and puzzle logic, including mechanics where objects inserted into or extracted from paintings alter world state. I also contributed to level layout, dialogue, voice acting, character concepts, and lore, and gained hands-on experience with 3D assets and meshes.</p>
+                    
+                    <div class="video-container">
+                        <video controls width="100%" style="max-width: 100%; border-radius: 14px; box-shadow: 0 10px 24px rgba(0,0,0,0.1);">
+                            <source src="../assets/videos/painting_mechanic-2.mov" type="video/quicktime">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    
+                    <p>The main challenge was balance: tension without overwhelming players, readable puzzles that don't break immersion, and lore that rewards curiosity without exposition dumps. This reinforced that code, art, sound, and narrative are interconnected.</p>
+                    
+                    <p>As a team project with strong-minded designers, collaboration required clear communication and compromise. I learned to argue constructively, let go when needed, and adapt my work to support a shared vision.</p>
+                    
+                    <p>The project confirmed that games are integrated systems and reshaped how I approach development. It also reinforced my interest in exploring unfamiliar genres and tools.</p>
+                </div>
+                
+                <div class="project-image">
+                    <img src="../assets/images/bunraku/the_end.png" alt="The End" style="width: 100%; max-width: 100%; border-radius: 14px; box-shadow: 0 10px 24px rgba(0,0,0,0.1); margin-top: 48px;">
+                </div>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <span>© <span id="year"></span> Morgan Waddington</span>
+                <span class="footer-links">
+                    <a href="./about.html">About</a>
+                    <a href="./contact.html">Contact</a>
+                </span>
+            </div>
+        </footer>
+
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+        </script>
+    </body>
+</html>
+

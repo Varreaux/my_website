@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Slow Gun — Morgan Waddington</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/styles.css">
+    </head>
+    <body>
+        <header class="site-header">
+            <nav class="nav">
+                <a class="logo" href="../index.html">MW</a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#ai-ml">AI/ML</a></li>
+                    <li><a href="../index.html#game-design">Game Design</a></li>
+                    <li><a href="../index.html#data-viz">Data Visualization</a></li>
+                    <li><a href="../index.html#cloud">Cloud (AWS)</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="section">
+            <div class="section-inner">
+                <h1 class="section-title">Slow Gun</h1>
+                <p class="section-lead">Dual-Weapon Action Platformer</p>
+                
+                <div class="project-content">
+                    <p style="margin-bottom: 24px;">Click <a href="https://morgan-w.itch.io/slow-gun" target="_blank" rel="noopener noreferrer" style="color: var(--brand); text-decoration: underline;">HERE</a> to play the game on itch. It's browser-based, so very easy to play.</p>
+                    
+                    <div class="video-container" style="margin-bottom: 32px;">
+                        <video controls width="100%" style="max-width: 100%; border-radius: 14px; box-shadow: 0 10px 24px rgba(0,0,0,0.1);">
+                            <source src="../assets/videos/slow-gun demo.mov" type="video/quicktime">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    
+                    <p>A 2D action platformer built in Godot that explores tactical combat through a weapon-switching system and a slow-down mechanic. The goal was to design encounters where players had to slow things down in order to progress.</p>
+                    
+                    <p>The core mechanic is a dual-weapon system: players can switch between a gun and a sword, each with different combat applications. The gun fires projectiles for ranged combat, deals no damage but you already know what it does ;) The sword creates area-of-effect attacks. The tactical element comes from the slow-down mechanic, when player bullets hit turrets, they reduce the turret's firing rate by dynamically adjusting timer intervals, creating strategic choices about target priority. Player bullets also slow down enemies.</p>
+                    
+                    <p>I implemented the weapon switching using an enum-based system that tracks available weapons and current selection. The slow-down mechanic required timer management: stopping the timer, adjusting wait times, and restarting it without breaking the firing cycle. This taught me about state management in real-time systems and how small mechanical interactions can create meaningful gameplay depth.</p>
+                    
+                    <div class="project-images-grid" style="grid-template-columns: repeat(2, 1fr); margin: 32px 0;">
+                        <img src="../assets/images/slow_gun/door_frame.png" alt="Door frame" class="project-image-item">
+                        <img src="../assets/images/slow_gun/sword.png" alt="Sword" class="project-image-item">
+                    </div>
+                    
+                    <p>The game also features enemy AI with horizontal pursuit behavior, where enemies track the player's position and move toward them. Breakable doors that respond to sword attacks (but not bullets) added another layer of interaction, requiring collision detection between area-based attacks and static objects.</p>
+                    
+                    <p>The checkpoint and respawn system was straightforward but important for player experience. It stores spawn positions and resets player state.</p>
+                </div>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <span>© <span id="year"></span> Morgan Waddington</span>
+                <span class="footer-links">
+                    <a href="./about.html">About</a>
+                    <a href="./contact.html">Contact</a>
+                </span>
+            </div>
+        </footer>
+
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+        </script>
+    </body>
+</html>
+
