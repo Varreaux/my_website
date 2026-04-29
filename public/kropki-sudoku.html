@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Kropki Sudoku Solver | Morgan Waddington</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/styles.css">
+    </head>
+    <body>
+        <header class="site-header">
+            <nav class="nav">
+                <a class="logo" href="../index.html">MW</a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#ai-ml">AI/ML</a></li>
+                    <li><a href="../index.html#game-design">Game Design</a></li>
+                    <li><a href="../index.html#data-viz">Data Visualization</a></li>
+                    <li><a href="../index.html#cloud">Cloud (AWS)</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="back-link-wrap">
+            <a class="back-link" href="./ai-ml.html"><span class="arrow">&larr;</span> Back to AI/ML</a>
+        </div>
+
+        <main class="section">
+            <div class="section-inner">
+                <h1 class="section-title">Kropki Sudoku Solver</h1>
+
+                <div class="project-content">
+                    <p>I built a constraint satisfaction solver in C++ for a variant of Sudoku where dots between cells encode extra rules: a white dot means the two values differ by 1, a black dot means one is double the other. The standard Sudoku rules still apply on top. The solver uses backtracking with the MRV and degree heuristics, plus forward checking against both the Sudoku and Kropki constraints. The interactive demo below is a JavaScript port that animates the search so you can watch the algorithm pick variables, try values, and back out of dead ends.</p>
+
+                    <h2 class="subhead">Try it</h2>
+
+                    <div class="kropki-demo">
+                        <div class="kropki-controls">
+                            <div class="kropki-control-row">
+                                <span class="astar-label">Puzzle:</span>
+                                <button class="astar-btn" data-kropki-preset="empty">Pure Kropki</button>
+                            </div>
+                            <div class="kropki-control-row">
+                                <label class="astar-slider">
+                                    <span>Speed</span>
+                                    <input id="kropki-speed" type="range" min="1" max="100" step="1" value="40">
+                                </label>
+                                <span class="astar-spacer"></span>
+                                <button class="astar-btn primary" id="kropki-solve">Solve</button>
+                                <button class="astar-btn" id="kropki-reset">Reset</button>
+                            </div>
+                        </div>
+
+                        <div class="kropki-board-wrap">
+                            <div class="kropki-board" id="kropki-board"></div>
+                        </div>
+
+                        <div class="kropki-meta">
+                            <div class="kropki-legend">
+                                <span class="kk-dot-legend white"></span> Consecutive
+                                <span class="kk-dot-legend black"></span> Double
+                                <span class="kk-current-legend"></span> Current cell
+                                <span class="kk-given-legend"></span> Given
+                                <span class="kk-filled-legend"></span> Solver assigned
+                            </div>
+                            <div class="kropki-status">
+                                <span id="kropki-stats">Nodes: 0   ·   Backtracks: 0</span>
+                                <span id="kropki-message"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 class="subhead">How the solver picks moves</h2>
+                    <ol class="pipeline">
+                        <li><strong>MRV (minimum remaining values).</strong> Pick the empty cell with the smallest legal domain. Fewer choices means less branching, and contradictions surface earlier.</li>
+                        <li><strong>Degree heuristic tiebreaker.</strong> When multiple cells tie on MRV, pick the one whose value would constrain the most other empty cells (most empty neighbors in its row, column, and 3x3 block).</li>
+                        <li><strong>Forward consistency check.</strong> Each candidate value is tested against current Sudoku rules and the Kropki dot constraints before being placed, so the search never enters a state that already violates a constraint.</li>
+                        <li><strong>Backtrack on failure.</strong> If no value works, undo the last assignment and try the next candidate one level up. The animation flashes the cell red on the way out.</li>
+                    </ol>
+
+                    <p>Try the <strong>Pure Kropki</strong> preset. The grid starts completely empty, so every value has to be derived from the dot constraints alone. The solver leans heavily on MRV here because the dots create cells with very small initial domains.</p>
+
+                    <h2 class="subhead">Source</h2>
+                    <p>This page is my JavaScript reimplementation for visualization. My original C++ solver, including the input parsing and three sample puzzles, lives <a href="https://github.com/Varreaux/Artificial_Inteligence_Projects/tree/main/AI%20project%202" target="_blank" rel="noopener noreferrer" style="color: var(--brand); text-decoration: underline;">on my GitHub</a>.</p>
+                </div>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <span>&copy; <span id="year"></span> Morgan Waddington</span>
+                <span class="footer-links">
+                    <a href="./about.html">About</a>
+                    <a href="./contact.html">Contact</a>
+                </span>
+            </div>
+        </footer>
+
+        <script src="../assets/kropki-demo.js"></script>
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+        </script>
+    </body>
+</html>

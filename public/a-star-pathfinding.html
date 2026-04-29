@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>A* Pathfinding | Morgan Waddington</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/styles.css">
+    </head>
+    <body>
+        <header class="site-header">
+            <nav class="nav">
+                <a class="logo" href="../index.html">MW</a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#ai-ml">AI/ML</a></li>
+                    <li><a href="../index.html#game-design">Game Design</a></li>
+                    <li><a href="../index.html#data-viz">Data Visualization</a></li>
+                    <li><a href="../index.html#cloud">Cloud (AWS)</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="back-link-wrap">
+            <a class="back-link" href="./ai-ml.html"><span class="arrow">&larr;</span> Back to AI/ML</a>
+        </div>
+
+        <main class="section">
+            <div class="section-inner">
+                <h1 class="section-title">A* Pathfinding</h1>
+
+                <div class="project-content">
+                    <p>A* finds the shortest path between two points on a grid by combining the cost of getting to a node with an estimate of the cost remaining. The version below adds 8-directional movement and an angle-change penalty, so the algorithm trades raw shortness for smoother, less zig-zaggy paths when you turn the penalty up.</p>
+
+                    <h2 class="subhead">Try it</h2>
+
+                    <div class="astar-demo">
+                        <div class="astar-controls">
+                            <div class="astar-control-row">
+                                <span class="astar-label">Click mode:</span>
+                                <button class="astar-btn" data-astar-mode="obstacle">Walls</button>
+                                <button class="astar-btn" data-astar-mode="start">Move start</button>
+                                <button class="astar-btn" data-astar-mode="end">Move end</button>
+                            </div>
+                            <div class="astar-control-row">
+                                <label class="astar-slider">
+                                    <span>Angle penalty: <strong id="astar-penalty-val">0.0</strong></span>
+                                    <input id="astar-penalty" type="range" min="0" max="3" step="0.1" value="0">
+                                </label>
+                                <label class="astar-slider">
+                                    <span>Speed</span>
+                                    <input id="astar-speed" type="range" min="1" max="60" step="1" value="1">
+                                </label>
+                            </div>
+                            <div class="astar-control-row">
+                                <button class="astar-btn primary" id="astar-run">Run</button>
+                                <button class="astar-btn" id="astar-clear-path">Clear path</button>
+                                <button class="astar-btn" id="astar-reset">Reset all</button>
+                                <span class="astar-spacer"></span>
+                                <span class="astar-label">Presets:</span>
+                                <button class="astar-btn ghost" data-astar-preset="maze">Maze</button>
+                                <button class="astar-btn ghost" data-astar-preset="rooms">Rooms</button>
+                                <button class="astar-btn ghost" data-astar-preset="diagonal">Diagonal</button>
+                            </div>
+                        </div>
+
+                        <div class="astar-canvas-wrap">
+                            <canvas id="astar-canvas"></canvas>
+                        </div>
+
+                        <div class="astar-meta">
+                            <div class="astar-legend">
+                                <span class="astar-dot" style="background:#2dd4bf"></span> Start
+                                <span class="astar-dot" style="background:#ef4444"></span> End
+                                <span class="astar-dot" style="background:#2d3748"></span> Wall
+                                <span class="astar-dot" style="background:rgba(124, 92, 255, 0.18); border:1px solid rgba(124,92,255,0.4)"></span> Visited
+                                <span class="astar-dot" style="background:rgba(77, 208, 225, 0.55)"></span> Frontier
+                                <span class="astar-dot" style="background:#7c5cff"></span> Path
+                            </div>
+                            <div class="astar-status">
+                                <span id="astar-stats">Visited: 0   ·   Path length: 0</span>
+                                <span id="astar-message"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 class="subhead">How it works</h2>
+                    <ol class="pipeline">
+                        <li><strong>Open set, ordered by f.</strong> A* keeps a priority queue of candidate nodes, sorted by <code>f = g + h</code>, where <code>g</code> is the cost from the start and <code>h</code> is a heuristic estimate of cost to the goal. The lowest-f node is always expanded next.</li>
+                        <li><strong>Octile heuristic.</strong> For 8-directional movement, the heuristic uses <code>max(dx, dy) + (sqrt(2) - 1) * min(dx, dy)</code>. It is admissible and tight, which keeps the search focused.</li>
+                        <li><strong>Step cost with diagonal weighting.</strong> Cardinal moves cost 1, diagonals cost sqrt(2). Diagonal squeezes through two adjacent walls are blocked so paths cannot phase through corners.</li>
+                        <li><strong>Angle-change penalty.</strong> When you arrive at a node from direction A and leave in direction B, the algorithm adds <code>(angle_between(A, B) / pi) * penalty</code> to the step cost. With the slider at 0 you get a standard A* path. Crank it up and the path straightens out, sometimes accepting a longer route to avoid sharp turns.</li>
+                    </ol>
+
+                    <p>Try setting the penalty to 0, drawing a few obstacles, and running. Then bump the penalty to 2 and run again on the same map. The frontier expansion looks similar but the final path is visibly straighter.</p>
+
+                    <h2 class="subhead">Source</h2>
+                    <p>This page is my JavaScript reimplementation for visualization purposes. My original C++ implementation, including the angle-change cost function used in a course assignment, lives <a href="https://github.com/Varreaux/Artificial_Inteligence_Projects/tree/main/AI%20project%201" target="_blank" rel="noopener noreferrer" style="color: var(--brand); text-decoration: underline;">on my GitHub</a>.</p>
+                </div>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <span>&copy; <span id="year"></span> Morgan Waddington</span>
+                <span class="footer-links">
+                    <a href="./about.html">About</a>
+                    <a href="./contact.html">Contact</a>
+                </span>
+            </div>
+        </footer>
+
+        <script src="../assets/a-star-demo.js"></script>
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+        </script>
+    </body>
+</html>

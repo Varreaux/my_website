@@ -1,20 +1,59 @@
-<h1>About Me</h1>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sem tellus, sagittis non odio nec, interdum
-  elementum lacus. Ut ac justo eget risus sollicitudin fringilla sed ut leo. Ut condimentum elit nec fermentum lobortis.
-  Quisque tincidunt quam nec tincidunt ullamcorper. Integer vitae pretium justo. In placerat volutpat pellentesque.
-  Etiam
-  gravida quam vitae odio pulvinar imperdiet. Vivamus venenatis gravida purus sit amet aliquet. Ut in nibh sed quam
-  laoreet lacinia. Cras cursus ut dui vitae posuere. Vivamus volutpat urna vitae odio fringilla placerat. Nulla vel
-  rhoncus sapien. Phasellus at interdum enim.</p>
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>About — Morgan Waddington</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/styles.css">
+    </head>
+    <body>
+        <header class="site-header">
+            <nav class="nav">
+                <a class="logo" href="../index.html">MW</a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#ai-ml">AI/ML</a></li>
+                    <li><a href="../index.html#game-design">Game Design</a></li>
+                    <li><a href="../index.html#data-viz">Data Visualization</a></li>
+                    <li><a href="../index.html#cloud">Cloud (AWS)</a></li>
+                </ul>
+            </nav>
+        </header>
 
-<p>Curabitur elementum sagittis mollis. In porta nec quam ut semper. Nulla volutpat neque quis lacus mattis eleifend.
-  Phasellus et congue odio. Mauris tristique, nisl quis porttitor porttitor, tortor ante mattis ex, at dictum tortor
-  dolor
-  ut sem. Nullam nec libero non ex porta vulputate a eu sapien. In nec bibendum mauris. Fusce iaculis lectus vel magna
-  laoreet gravida.</p>
+        <main class="section">
+            <div class="section-inner">
+                <h1 class="section-title">About</h1>
+                <div class="project-content">
+                    <p>My path so far has been a series of pivots driven by curiosity. I spent seven years in financial services, first working on foreclosure data and then moving into bond securitization at a public REIT, where I helped run end-to-end execution of eight bond offerings totaling roughly $3 billion in aggregate issuance. The work was intricate and consequential, but I wanted to move closer to the technology that's reshaping how problems get solved. So I came to NYU Tandon to pursue an M.S. in Computer Science.</p>
+                    <p>Now I'm building things that combine that financial domain with modern AI and cloud systems. I work as a Tech Intern at NYU's Office of Global Services and as a Teacher Assistant for Tandon's graduate Artificial Intelligence course (CS6613). The projects on this site span AI and machine learning, cloud architecture, data visualization, and game design, areas that look unrelated until you start working in them.</p>
+                    <p>I speak English and French fluently, and I'm proficient in Spanish. Based in New York City.</p>
+                </div>
 
-<p>Donec euismod vestibulum arcu, a blandit metus mattis ultrices. Integer quis hendrerit justo. Maecenas sed tempor mi.
-  Fusce egestas urna leo. Mauris viverra sem sed libero egestas, volutpat aliquet magna porta. Quisque id diam sed ipsum
-  interdum sollicitudin id quis augue. Donec congue nisl nec massa ornare imperdiet quis quis odio. Etiam ut volutpat
-  nisl. Vestibulum hendrerit justo nibh, eget consequat magna fermentum finibus. Pellentesque et urna fringilla, rutrum
-  neque in, varius leo. Vestibulum efficitur id massa eget pellentesque.</p>
+                <div class="resume-embed">
+                    <h2 class="section-title">Resume</h2>
+                    <object data="../assets/Morgan_Waddington_Resume.pdf#view=FitH" type="application/pdf" width="100%" height="900">
+                        <p>Your browser can't display PDFs inline. <a class="btn primary" href="../assets/Morgan_Waddington_Resume.pdf" target="_blank" rel="noopener">View resume (PDF)</a></p>
+                    </object>
+                    <p class="resume-download"><a class="btn" href="../assets/Morgan_Waddington_Resume.pdf" download>Download PDF</a></p>
+                </div>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <span>&copy; <span id="year"></span> Morgan Waddington</span>
+                <span class="footer-links">
+                    <a href="./about.html">About</a>
+                    <a href="./contact.html">Contact</a>
+                </span>
+            </div>
+        </footer>
+
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+        </script>
+    </body>
+</html>

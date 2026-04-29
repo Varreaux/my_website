@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>8-Puzzle Solver | Morgan Waddington</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/styles.css">
+    </head>
+    <body>
+        <header class="site-header">
+            <nav class="nav">
+                <a class="logo" href="../index.html">MW</a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#ai-ml">AI/ML</a></li>
+                    <li><a href="../index.html#game-design">Game Design</a></li>
+                    <li><a href="../index.html#data-viz">Data Visualization</a></li>
+                    <li><a href="../index.html#cloud">Cloud (AWS)</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="back-link-wrap">
+            <a class="back-link" href="./ai-ml.html"><span class="arrow">&larr;</span> Back to AI/ML</a>
+        </div>
+
+        <main class="section">
+            <div class="section-inner">
+                <h1 class="section-title">8-Puzzle Solver</h1>
+
+                <div class="project-content">
+                    <p>I built an A* solver for the classic sliding-tile puzzle in Python for an AI course, with two admissible heuristics: pure Manhattan distance (h1) and a tighter Manhattan plus linear conflict variant (h2). The interactive demo below ports the solver to JavaScript so you can pick a starting position, choose a heuristic, and watch the optimal solution play out as tiles slide into place. Toggling between h1 and h2 on the same scramble shows how a sharper heuristic explores far fewer nodes for the same answer.</p>
+
+                    <h2 class="subhead">Try it</h2>
+
+                    <div class="ep-demo">
+                        <div class="ep-controls">
+                            <div class="ep-control-row">
+                                <span class="astar-label">Heuristic:</span>
+                                <button class="astar-btn" data-ep-heuristic="h1">h1: Manhattan</button>
+                                <button class="astar-btn" data-ep-heuristic="h2">h2: Manhattan + linear conflict</button>
+                            </div>
+                            <div class="ep-control-row">
+                                <span class="astar-label">Start:</span>
+                                <button class="astar-btn" data-ep-preset="p3">Preset puzzle</button>
+                                <button class="astar-btn ghost" id="ep-scramble">Random scramble</button>
+                            </div>
+                            <div class="ep-control-row">
+                                <label class="astar-slider">
+                                    <span>Speed</span>
+                                    <input id="ep-speed" type="range" min="1" max="100" step="1" value="60">
+                                </label>
+                                <span class="astar-spacer"></span>
+                                <button class="astar-btn primary" id="ep-solve">Solve</button>
+                                <button class="astar-btn" id="ep-reset">Reset</button>
+                            </div>
+                        </div>
+
+                        <div class="ep-board-section">
+                            <div class="ep-board-wrap">
+                                <div class="ep-board" id="ep-board"></div>
+                                <div class="ep-board-label">Current</div>
+                            </div>
+                            <div class="ep-board-wrap ep-goal-wrap">
+                                <div class="ep-board ep-goal-board" id="ep-goal-board"></div>
+                                <div class="ep-board-label">Goal</div>
+                            </div>
+                        </div>
+
+                        <div class="ep-meta">
+                            <div class="ep-status">
+                                <span id="ep-stats">Heuristic: <strong>h2</strong></span>
+                                <span id="ep-message"></span>
+                            </div>
+                        </div>
+
+                        <div class="ep-tree-section">
+                            <h3 class="ep-tree-title">Search tree (first 30 expansions)</h3>
+                            <p class="ep-tree-caption">Each node is a state A* expanded (popped from the heap). Children are the successors generated next. The optimal root-to-goal path lights up purple after the search ends. <em>Expanded</em> counts uniquely; <em>Generated</em> includes re-pushes.</p>
+                            <div class="ep-tree-wrap">
+                                <div class="ep-tree-container" id="ep-tree-container"></div>
+                            </div>
+                            <div class="ep-tree-overflow" id="ep-tree-overflow"></div>
+                        </div>
+                    </div>
+
+                    <h2 class="subhead">How A* solves it</h2>
+                    <ol class="pipeline">
+                        <li><strong>States and successors.</strong> The current arrangement of tiles is a state. Successors come from sliding the blank one square left, right, up, or down. Each move has cost 1.</li>
+                        <li><strong>h1 (Manhattan distance).</strong> Sum of the row and column distances each tile is from its goal position. Admissible because every tile must travel at least that far.</li>
+                        <li><strong>h2 (linear conflict).</strong> Adds 2 for every pair of tiles in the same goal row or column that are in reverse order. Two such tiles cannot pass each other without one stepping aside, so the extra moves are unavoidable. The estimate stays admissible and gets noticeably tighter.</li>
+                        <li><strong>Best-first search by f = g + h.</strong> A min-heap orders frontier states by their f value. A closed set prevents re-expanding states that have already been visited, turning the search into A* graph search.</li>
+                    </ol>
+
+                    <p>Try the preset puzzle with <strong>h1</strong> first, then run it again with <strong>h2</strong>. The solution depth is identical, but the node count drops noticeably because h2 prunes branches that h1 still thinks are worth exploring.</p>
+
+                    <h2 class="subhead">Source</h2>
+                    <p>This page is my JavaScript port of the solver. Each preset uses its own start state and goal state, just like my original Python solver, which reads both from input files. My original Python implementation, including input parsing, output writers, and the three sample puzzles, lives <a href="https://github.com/Varreaux/Artificial_Inteligence_Projects/tree/main/AI%20project%203" target="_blank" rel="noopener noreferrer" style="color: var(--brand); text-decoration: underline;">on my GitHub</a>.</p>
+                </div>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <span>&copy; <span id="year"></span> Morgan Waddington</span>
+                <span class="footer-links">
+                    <a href="./about.html">About</a>
+                    <a href="./contact.html">Contact</a>
+                </span>
+            </div>
+        </footer>
+
+        <script src="../assets/eight-puzzle-demo.js"></script>
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+        </script>
+    </body>
+</html>

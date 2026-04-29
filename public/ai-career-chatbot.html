@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Data Visualization — Morgan Waddington</title>
+        <title>AI Career Chatbot — Morgan Waddington</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -23,13 +23,28 @@
             </nav>
         </header>
 
+        <div class="back-link-wrap">
+            <a class="back-link" href="./ai-ml.html"><span class="arrow">&larr;</span> Back to AI/ML</a>
+        </div>
+
         <main class="section">
             <div class="section-inner">
-                <h1 class="section-title">Data Visualization</h1>
-                <p class="section-lead">Turning complex datasets into clear, compelling narratives.</p>
-                <div class="coming-soon">
-                    <h2 class="coming-soon-title">Coming soon</h2>
-                    <p class="coming-soon-body">Projects for this section are in progress. Check back soon.</p>
+                <h1 class="section-title">AI Career Chatbot</h1>
+                
+                <div class="project-content">
+                    <p>If you've checked out my homepage, you've seen my chatbot. It's an AI assistant that answers questions about my background using my LinkedIn profile (parsed from a PDF) and a summary. It uses OpenAI's function calling with two tools: one captures leads when someone shares their email, and another logs questions it can't answer. Both send push notifications to my phone in real time, so I know when someone's interested or when there's a gap in my knowledge base. Built with OpenAI's API, Gradio, and Pushover. It's essentially an automated resume presenter and lead capture system in one :)</p>
+                    
+                    <p style="margin-top: 48px; margin-bottom: 24px;">If you don't feel like going back to the homepage, feel free to try my chatbot below:</p>
+                    
+                    <div style="margin-bottom: 48px; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 24px rgba(0,0,0,0.1); background: #ffffff;">
+                        <iframe
+                            src="https://varreaux-career-conversation.hf.space"
+                            frameborder="0"
+                            width="100%"
+                            height="700"
+                            style="display: block; border: none;"
+                        ></iframe>
+                    </div>
                 </div>
             </div>
         </main>
@@ -49,10 +64,4 @@
         </script>
     </body>
 </html>
-
-
-
-
-
-
 

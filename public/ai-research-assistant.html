@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AI Research Assistant — Morgan Waddington</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/styles.css">
+    </head>
+    <body>
+        <header class="site-header">
+            <nav class="nav">
+                <a class="logo" href="../index.html">MW</a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#ai-ml">AI/ML</a></li>
+                    <li><a href="../index.html#game-design">Game Design</a></li>
+                    <li><a href="../index.html#data-viz">Data Visualization</a></li>
+                    <li><a href="../index.html#cloud">Cloud (AWS)</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="back-link-wrap">
+            <a class="back-link" href="./ai-ml.html"><span class="arrow">&larr;</span> Back to AI/ML</a>
+        </div>
+
+        <main class="section">
+            <div class="section-inner">
+                <h1 class="section-title">AI Research Assistant</h1>
+                
+                <div class="project-content">
+                    <p>Have you tried OpenAI's research mode? This is my take on recreating that functionality. You give it a topic, a pipeline of specialized agents takes over, and a few minutes later a structured research report lands in your inbox.</p>
+
+                    <h2 class="subhead">How it works</h2>
+                    <ol class="pipeline">
+                        <li><strong>Planner agent.</strong> Breaks your query into 3 targeted web searches, each with a stated reason. Uses Pydantic models for structured output.</li>
+                        <li><strong>Search agent.</strong> Fans those searches out in parallel via asyncio, calling OpenAI's WebSearchTool and condensing each result into a 2 to 3 paragraph summary under 300 words.</li>
+                        <li><strong>Writer agent.</strong> Takes the summaries plus the original query, drafts an outline, and produces a full markdown report alongside a short summary and follow-up research questions.</li>
+                        <li><strong>Email agent.</strong> Converts the markdown into clean HTML and ships it via SendGrid using a <code>@function_tool</code> decorator.</li>
+                    </ol>
+
+                    <h2 class="subhead">Under the hood</h2>
+                    <p>A ResearchManager orchestrates the whole pipeline. Async generators stream progress updates to the UI as each stage completes, and OpenAI's tracing is wired in so you can watch exactly what each agent is doing in real time. The front end is Gradio, so the whole thing is one query box and a live status feed.</p>
+                    <p>It is a compact case study in coordinating specialized agents, running parallel async work, and passing structured data cleanly between AI systems.</p>
+
+                    <h2 class="subhead">Try it</h2>
+                    <p>Live demo: <a href="https://huggingface.co/spaces/Varreaux/deep_research" target="_blank" rel="noopener noreferrer" style="color: var(--brand); text-decoration: underline;">huggingface.co/spaces/Varreaux/deep_research</a></p>
+                    <p>Heads up: it takes a couple minutes to run, and while you will see the output on screen, I also get an email with your search results.</p>
+                </div>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <span>© <span id="year"></span> Morgan Waddington</span>
+                <span class="footer-links">
+                    <a href="./about.html">About</a>
+                    <a href="./contact.html">Contact</a>
+                </span>
+            </div>
+        </footer>
+
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+        </script>
+    </body>
+</html>
+

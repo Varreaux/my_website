@@ -13,7 +13,16 @@
             return;
         }
         
-        let isMinimized = false;
+        const path = window.location.pathname;
+        const isMainPage = path === '/' || path.endsWith('/') || path.endsWith('/index.html');
+        let isMinimized = isMainPage;
+
+        if (isMinimized) {
+            widget.classList.add('minimized');
+            minimizeIcon.style.display = 'none';
+            maximizeIcon.style.display = 'block';
+            minimizeButton.setAttribute('aria-label', 'Maximize chat');
+        }
 
         // Toggle minimize/expand
         function toggleMinimize() {
@@ -57,7 +66,7 @@
         });
 
         // On mobile, prevent body scroll when widget is open
-        if (window.innerWidth <= 640) {
+        if (window.innerWidth <= 640 && !isMinimized) {
             document.body.classList.add('chatbot-open');
         }
 
