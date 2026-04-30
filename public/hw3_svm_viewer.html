@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>DoS Detection with SVM Kernels | Morgan Waddington</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/styles.css">
+    </head>
+    <body>
+        <header class="site-header">
+            <nav class="nav">
+                <a class="logo" href="../index.html">MW</a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#ai-ml">AI/ML</a></li>
+                    <li><a href="../index.html#game-design">Game Design</a></li>
+                    <li><a href="../index.html#data-viz">Data Visualization</a></li>
+                    <li><a href="../index.html#cloud">Cloud (AWS)</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="back-link-wrap">
+            <a class="back-link" href="./ai-ml.html"><span class="arrow">&larr;</span> Back to AI/ML</a>
+        </div>
+
+        <main class="section">
+            <div class="section-inner">
+                <h1 class="section-title">DoS Detection with SVM Kernels</h1>
+
+                <div class="project-content">
+                    <p>I trained four SVM models (linear, RBF, sigmoid, polynomial kernels) to detect denial-of-service attacks in the KDD Cup '99 intrusion dataset, then compared how each kernel handles the same data. My full code is in the notebook further down the page. With all 41 features available, three of the four kernels nail it to roughly 100% accuracy and sigmoid trails slightly behind once its gamma is tuned. The more interesting story is in the second part, where I retrain on just two features (<code>dst_host_srv_diff_host_rate</code> and <code>dst_bytes</code>) and plot the decision boundary. Accuracy drops to 92 to 93% and the visualization shows exactly where the linear kernel's flat boundary differs from the RBF kernel's curved one, plus the overlap region that neither model can resolve cleanly.</p>
+
+                    <h2 class="subhead">Try it</h2>
+                    <p>Below is a 2D playground that trains a real SVM (Sequential Minimal Optimization solver) on a small set of points you control. Pick a preset, switch between kernels, tune the hyperparameters, and watch the decision regions reshape themselves. The XOR preset is the most revealing: linear gives up entirely while RBF and polynomial carve out the four quadrants cleanly. Support vectors are the points with a dark outline.</p>
+
+                    <div class="svm-demo">
+                        <div class="svm-controls">
+                            <div class="svm-control-row">
+                                <span class="astar-label">Kernel:</span>
+                                <button class="astar-btn" data-svm-kernel="linear">Linear</button>
+                                <button class="astar-btn" data-svm-kernel="rbf">RBF</button>
+                                <button class="astar-btn" data-svm-kernel="poly">Polynomial</button>
+                                <button class="astar-btn" data-svm-kernel="sigmoid">Sigmoid</button>
+                            </div>
+                            <div class="svm-control-row">
+                                <span class="astar-label">Preset:</span>
+                                <button class="astar-btn ghost" data-svm-preset="separable">Separable</button>
+                                <button class="astar-btn ghost" data-svm-preset="xor">XOR</button>
+                                <button class="astar-btn ghost" data-svm-preset="circles">Concentric</button>
+                            </div>
+                            <div class="svm-control-row">
+                                <span class="astar-label">Click adds:</span>
+                                <button class="astar-btn pd-class-red" data-svm-class="1">Red point</button>
+                                <button class="astar-btn pd-class-blue" data-svm-class="-1">Green point</button>
+                                <span class="astar-spacer"></span>
+                                <button class="astar-btn" id="svm-clear">Clear points</button>
+                            </div>
+                            <div class="svm-control-row">
+                                <label class="astar-slider">
+                                    <span>C (regularization): <strong id="svm-c-val">1.00</strong></span>
+                                    <input id="svm-c" type="range" min="0.1" max="10" step="0.1" value="1.0">
+                                </label>
+                                <label class="astar-slider" id="svm-gamma-row">
+                                    <span>Gamma: <strong id="svm-gamma-val">1.00</strong></span>
+                                    <input id="svm-gamma" type="range" min="0.1" max="5" step="0.1" value="1.0">
+                                </label>
+                                <label class="astar-slider" id="svm-degree-row" style="display:none">
+                                    <span>Degree: <strong id="svm-degree-val">3</strong></span>
+                                    <input id="svm-degree" type="range" min="2" max="6" step="1" value="3">
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="svm-canvas-wrap">
+                            <canvas id="svm-canvas"></canvas>
+                        </div>
+
+                        <div class="svm-meta">
+                            <div class="svm-legend">
+                                <span class="astar-dot" style="background:#ef4444; border-radius:50%"></span> Class +1
+                                <span class="astar-dot" style="background:#2dd4bf; border-radius:50%"></span> Class &minus;1
+                                <span class="svm-sv-marker"></span> Support vector
+                            </div>
+                            <div class="svm-stats" id="svm-stats">Add points to train.</div>
+                        </div>
+                    </div>
+
+                    <h2 class="subhead">Full notebook</h2>
+
+                    <details class="pd-notebook" open>
+                        <summary><span class="pd-toggle-show">Show notebook</span><span class="pd-toggle-hide">Hide notebook</span></summary>
+                        <div class="pd-notebook-frame">
+                            <iframe src="./hw3_svm.html" title="DoS detection with SVM kernels notebook"></iframe>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <span>&copy; <span id="year"></span> Morgan Waddington</span>
+                <span class="footer-links">
+                    <a href="./about.html">About</a>
+                    <a href="./contact.html">Contact</a>
+                </span>
+            </div>
+        </footer>
+
+        <script src="../assets/svm-demo.js"></script>
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+        </script>
+    </body>
+</html>
