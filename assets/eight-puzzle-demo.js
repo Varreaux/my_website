@@ -368,7 +368,6 @@
 
         const TREE_CAP = 30;
         const treeContainer = document.getElementById('ep-tree-container');
-        const treeOverflow = document.getElementById('ep-tree-overflow');
 
         function layoutTree(visible) {
             const NODE_W = 52;
@@ -422,12 +421,13 @@
             return { positions, totalWidth: widths[0] || NODE_W, nodeW: NODE_W, nodeH: NODE_H };
         }
 
-        function renderTreeOnce(visible, layout, solutionPathSet) {
+        function renderTreeOnce(visible, layout, solutionPathSet, moreCount) {
             const NS = 'http://www.w3.org/2000/svg';
             treeContainer.innerHTML = '';
-            if (visible.length === 0) return { nodeEls: [], edgeEls: [] };
+            if (visible.length === 0) return { nodeEls: [], edgeEls: [], stubEls: [] };
             const PAD = 24;
-            const totalH = Math.max.apply(null, layout.positions.map(p => p.y)) + layout.nodeH + 24;
+            const stubExtra = moreCount > 0 ? 60 : 0;
+            const totalH = Math.max.apply(null, layout.positions.map(p => p.y)) + layout.nodeH + 24 + stubExtra;
             const totalW = layout.totalWidth + PAD * 2;
             const svg = document.createElementNS(NS, 'svg');
             svg.setAttribute('width', totalW);
@@ -497,26 +497,48 @@
                 nodeEls.push(g);
             }
 
+            const stubEls = [];
+            if (moreCount > 0 && visible.length > 0) {
+                const lastIdx = visible.length - 1;
+                const lastPos = layout.positions[lastIdx];
+                const cx = lastPos.cx + PAD;
+                const stubY1 = lastPos.y + layout.nodeH + 4;
+                const stubY2 = stubY1 + 30;
+                const labelY = stubY2 + 16;
+
+                const stubLine = document.createElementNS(NS, 'line');
+                stubLine.setAttribute('x1', cx);
+                stubLine.setAttribute('y1', stubY1);
+                stubLine.setAttribute('x2', cx);
+                stubLine.setAttribute('y2', stubY2);
+                stubLine.classList.add('ep-tree-edge', 'ep-tree-stub');
+                svg.appendChild(stubLine);
+                stubEls.push(stubLine);
+
+                const stubLabel = document.createElementNS(NS, 'text');
+                stubLabel.setAttribute('x', cx);
+                stubLabel.setAttribute('y', labelY);
+                stubLabel.setAttribute('text-anchor', 'middle');
+                stubLabel.classList.add('ep-tree-stub-label');
+                stubLabel.textContent = '+ ' + moreCount + ' more nodes to expand';
+                svg.appendChild(stubLabel);
+                stubEls.push(stubLabel);
+            }
+
             treeContainer.appendChild(svg);
-            return { nodeEls, edgeEls };
+            return { nodeEls, edgeEls, stubEls };
         }
 
         function clearTree() {
             if (treeContainer) treeContainer.innerHTML = '';
-            if (treeOverflow) treeOverflow.textContent = '';
         }
 
         async function animateTree(expansionLog, solutionPathSet, stepDelay, getToken, abortToken) {
             if (!treeContainer) return;
             const visible = expansionLog.slice(0, TREE_CAP);
             const layout = layoutTree(visible);
-            const { nodeEls, edgeEls } = renderTreeOnce(visible, layout, solutionPathSet);
             const moreCount = expansionLog.length - TREE_CAP;
-            if (treeOverflow) {
-                treeOverflow.textContent = moreCount > 0
-                    ? '+ ' + moreCount + ' more nodes expanded (showing first ' + TREE_CAP + ')'
-                    : '';
-            }
+            const { nodeEls, edgeEls, stubEls } = renderTreeOnce(visible, layout, solutionPathSet, moreCount);
             let prev = null;
             for (let i = 0; i < visible.length; i++) {
                 if (getToken && getToken() !== abortToken) return;
@@ -528,6 +550,10 @@
                 await sleep(stepDelay);
             }
             if (prev) prev.classList.remove('current');
+            if (stubEls && stubEls.length > 0) {
+                await sleep(stepDelay);
+                stubEls.forEach(el => el.classList.add('visible'));
+            }
         }
 
         async function runSolve() {
