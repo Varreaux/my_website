@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Phishing URL Detection with Decision Trees | Morgan Waddington</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/styles.css">
+    </head>
+    <body>
+        <header class="site-header">
+            <nav class="nav">
+                <a class="logo" href="../index.html">MW</a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#ai-ml">AI/ML</a></li>
+                    <li><a href="../index.html#game-design">Game Design</a></li>
+                    <li><a href="../index.html#data-viz">Data Visualization</a></li>
+                    <li><a href="../index.html#cloud">Cloud (AWS)</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="back-link-wrap">
+            <a class="back-link" href="./ai-ml.html"><span class="arrow">&larr;</span> Back to AI/ML</a>
+        </div>
+
+        <main class="section">
+            <div class="section-inner">
+                <h1 class="section-title">Phishing URL Detection with Decision Trees</h1>
+
+                <div class="project-content">
+                    <p>I trained decision-tree classifiers on a phishing-vs-benign URL dataset (~36k URLs, 79 hand-engineered features), sweeping depths 1 to 6 across Gini and entropy. The classes were 4:1 benign-to-phishing, so I undersampled the training set to 1:1, which pulled benign precision up without hurting phishing recall. A depth-1 stump hits 80%, depth 2 hits 86%, and by depth 6 both criteria converge on 93%. Gini wins the middle of the range (90% vs. 86% at depth 3), consistent with its simpler splits generalizing better as depth grows. The depth-2 tree splits on <code>SymbolCount_Domain</code> at the root, then on <code>urlLen</code> and <code>delimeter_path</code>. Full code and per-depth confusion matrices are in the notebook below.</p>
+
+                    <h2 class="subhead">Try it</h2>
+                    <p>Below is a 2D playground that trains a real greedy decision tree on points you control. The tree itself is drawn underneath in lockstep with the 2D plot: every internal node corresponds to one split line, every leaf to one rectangular region. Drag the depth slider and watch both grow level by level. Hover any tree node to outline the region it owns. XOR is the cleanest test: depth 1 can't beat 50%, but depth 2 carves out all four quadrants. Drop the depth slider to watch underfitting, raise it on the concentric preset to watch overfitting.</p>
+
+                    <div class="dt-demo">
+                        <div class="dt-controls">
+                            <div class="dt-control-row">
+                                <span class="astar-label">Criterion:</span>
+                                <button class="astar-btn" data-dt-criterion="gini">Gini</button>
+                                <button class="astar-btn" data-dt-criterion="entropy">Entropy</button>
+                            </div>
+                            <div class="dt-control-row">
+                                <span class="astar-label">Preset:</span>
+                                <button class="astar-btn ghost" data-dt-preset="separable">Separable</button>
+                                <button class="astar-btn ghost" data-dt-preset="xor">XOR</button>
+                                <button class="astar-btn ghost" data-dt-preset="stripes">Stripes</button>
+                                <button class="astar-btn ghost" data-dt-preset="circles">Concentric</button>
+                            </div>
+                            <div class="dt-control-row">
+                                <span class="astar-label">Click adds:</span>
+                                <button class="astar-btn pd-class-red" data-dt-class="1">Red point</button>
+                                <button class="astar-btn pd-class-blue" data-dt-class="-1">Green point</button>
+                                <span class="astar-spacer"></span>
+                                <button class="astar-btn" id="dt-clear">Clear points</button>
+                            </div>
+                            <div class="dt-control-row">
+                                <label class="astar-slider">
+                                    <span>Max depth: <strong id="dt-depth-val">4</strong></span>
+                                    <input id="dt-depth" type="range" min="1" max="8" step="1" value="4">
+                                </label>
+                                <button class="astar-btn" id="dt-play">Play</button>
+                            </div>
+                        </div>
+
+                        <div class="dt-graphs-row">
+                            <div class="dt-tree-wrap">
+                                <svg id="dt-tree-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+                            </div>
+
+                            <div class="dt-canvas-wrap">
+                                <canvas id="dt-canvas"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="dt-meta">
+                            <div class="dt-legend">
+                                <span class="astar-dot" style="background:#ef4444; border-radius:50%"></span> Class +1
+                                <span class="astar-dot" style="background:#2dd4bf; border-radius:50%"></span> Class &minus;1
+                            </div>
+                            <div class="dt-stats" id="dt-stats">Add points to train.</div>
+                        </div>
+                    </div>
+
+                    <h2 class="subhead">Full notebook</h2>
+
+                    <details class="pd-notebook" open>
+                        <summary><span class="pd-toggle-show">Show notebook</span><span class="pd-toggle-hide">Hide notebook</span></summary>
+                        <div class="pd-notebook-frame">
+                            <iframe src="./hw4_decision_tree.html" title="Phishing URL detection with decision trees notebook"></iframe>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <span>&copy; <span id="year"></span> Morgan Waddington</span>
+                <span class="footer-links">
+                    <a href="./about.html">About</a>
+                    <a href="./contact.html">Contact</a>
+                </span>
+            </div>
+        </footer>
+
+        <script src="../assets/dt-demo.js"></script>
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+        </script>
+    </body>
+</html>

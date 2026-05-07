@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Prompt 2 Post: AWS Serverless | Morgan Waddington</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/styles.css">
+    </head>
+    <body>
+        <header class="site-header">
+            <nav class="nav">
+                <a class="logo" href="../index.html">MW</a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#ai-ml">AI/ML</a></li>
+                    <li><a href="../index.html#game-design">Game Design</a></li>
+                    <li><a href="../index.html#data-viz">Data Visualization</a></li>
+                    <li><a href="../index.html#cloud">Cloud (AWS)</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="back-link-wrap">
+            <a class="back-link" href="./cloud.html"><span class="arrow">&larr;</span> Back to Cloud</a>
+        </div>
+
+        <main class="section">
+            <div class="section-inner">
+                <h1 class="section-title">Prompt 2 Post: AWS Serverless with Bedrock, Lex, and Rekognition</h1>
+                <p class="section-lead">Chat with a bot, the system finds your photo, generates captions with Claude, and posts it to Bluesky.</p>
+
+                <div class="project-content">
+                    <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 14px; box-shadow: 0 10px 24px rgba(0,0,0,0.12); margin-bottom: 24px;">
+                        <iframe src="https://www.youtube.com/embed/-NcHhjeyxLE" title="Prompt 2 Post demo video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+                    </div>
+
+                    <p style="margin-bottom: 28px;">If you want to dig into the code, the project is up on <a href="https://github.com/swetha-ganeshbabu/prompt-to-post" target="_blank" rel="noopener noreferrer" style="color: var(--brand); text-decoration: underline;">GitHub</a> (in my teammate Swetha's repo). The full IEEE write-up is also <a href="../assets/prompt-2-post-paper.pdf" target="_blank" rel="noopener noreferrer" style="color: var(--brand); text-decoration: underline;">available as a PDF</a>.</p>
+
+                    <p>Prompt 2 Post is a cloud-native pipeline that automates the creation and posting of captioned social media images. A user signs in, types something like "post a beach photo with a chill caption," and the system finds a matching image from their connected Google Photos library, generates a caption using a foundation model, overlays the caption on the image, and publishes it to Bluesky. The whole loop runs on AWS with no servers to manage and no human in the middle once the prompt is sent.</p>
+
+                    <blockquote style="border-left: 4px solid var(--brand); padding: 6px 0 6px 20px; margin: 28px 0; font-size: 17px; line-height: 1.55;">
+                        Team project, four people. The captioning brain runs on <strong>Amazon Bedrock with Claude 3 Haiku</strong>, the image understanding on <strong>Rekognition</strong>, and the matching layer on <strong>OpenSearch</strong>.
+                    </blockquote>
+
+                    <h2 class="subhead" style="margin-top: 36px;">System architecture</h2>
+                    <img src="../assets/images/system diagram aws final project.png" alt="Prompt 2 Post system architecture diagram showing AWS services for ingestion, indexing, chat, captioning, overlay, and posting" style="width: 100%; border-radius: 14px; box-shadow: 0 10px 24px rgba(0,0,0,0.12); display: block; margin: 16px 0 28px;">
+
+                    <p>Two pipelines do the heavy lifting. The <strong>ingestion pipeline</strong> runs daily on EventBridge: a Coordinator Lambda fans out one SQS job per user, a Photo Fetcher Lambda pulls fresh images from Google Photos using OAuth refresh tokens stored in Secrets Manager, drops them into S3, and an Image Indexing Lambda runs Rekognition for labels and pushes metadata into OpenSearch. The <strong>posting pipeline</strong> starts at the chatbot: a Lex V2 bot on a static S3 frontend captures imageTopic and captionStyle slots, a backend Lambda uses Claude to clean the input and queries OpenSearch for a matching image, then queues the job to SQS. Downstream Lambdas call Claude for short and long captions, render the overlay with Pillow, and a final Lambda authenticates to Bluesky (credentials in Secrets Manager, JWT cached in ElastiCache) and posts the image.</p>
+
+                    <p>Caption generation went through real iteration. The team evaluated open-source models like BLIP and Flan-T5, then several Bedrock options, before settling on Claude 3 Haiku for its multimodal input and clean structured-JSON output.</p>
+
+                    <p><strong>Stack:</strong> AWS Lambda for every compute step, Amazon Bedrock with Claude 3 Haiku for caption generation, Amazon Lex V2 for conversational input, Cognito and Secrets Manager for auth and credentials, S3 for image storage and the static frontend, Amazon Rekognition for image labeling, OpenSearch for indexing image metadata, SQS (with Dead Letter Queues) for queueing between stages, EventBridge for scheduled triggers, ElastiCache for token caching, and API Gateway for the OAuth and chat endpoints.</p>
+                </div>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <span>&copy; <span id="year"></span> Morgan Waddington</span>
+                <span class="footer-links">
+                    <a href="./about.html">About</a>
+                    <a href="./contact.html">Contact</a>
+                </span>
+            </div>
+        </footer>
+
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+        </script>
+    </body>
+</html>

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Talk to NYC Mortgage Data | Morgan Waddington</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/styles.css">
+    </head>
+    <body>
+        <header class="site-header">
+            <nav class="nav">
+                <a class="logo" href="../index.html">MW</a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#ai-ml">AI/ML</a></li>
+                    <li><a href="../index.html#game-design">Game Design</a></li>
+                    <li><a href="../index.html#data-viz">Data Visualization</a></li>
+                    <li><a href="../index.html#cloud">Cloud (AWS)</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="back-link-wrap">
+            <a class="back-link" href="./ai-ml.html"><span class="arrow">&larr;</span> Back to AI/ML</a>
+        </div>
+
+        <main class="section">
+            <div class="section-inner">
+                <h1 class="section-title">Talk to NYC Mortgage Data: Gemini Live API, Multi-Agent AI, Cloud Run</h1>
+                <p class="section-lead">A live AI dashboard for interrogating 446,902 HMDA mortgage applications by voice or text.</p>
+
+                <div class="project-content">
+                    <img src="../assets/images/fair_lending.png" alt="Fair Lending War Room dashboard showing 446,902 applications, denial rate KPIs, disparity ratio, and four charts on lending bias" style="width: 100%; border-radius: 14px; box-shadow: 0 10px 24px rgba(0,0,0,0.12); display: block; margin: 12px 0 36px;">
+
+                    <p>HMDA mortgage data is a public goldmine for understanding lending fairness, but it usually sits behind expensive consulting tools and SQL skills most people don't have. This project puts a conversational AI copilot in front of 446,902 NYC mortgage applications and lets anyone interrogate the data in natural language, by typing or by talking.</p>
+
+                    <blockquote style="border-left: 4px solid var(--brand); padding: 6px 0 6px 20px; margin: 28px 0; font-size: 18px; line-height: 1.55;">
+                        Black applicants in NYC are denied mortgages at <strong>1.66x</strong> the rate of White applicants, and the disparity <em>widens</em> as income rises.
+                    </blockquote>
+
+                    <p>Under the hood is a multi-agent system: a central orchestrator powered by Gemini 2.5 Flash routes each question to a specialist (stats, geography, or policy) and stitches the answers back together. Charts are generated on the fly by the AI itself, not pre-built. Voice mode runs on the Gemini Live API with bidirectional audio streaming over WebSocket, and a pipeline animation bar shows what the system is doing at every step.</p>
+
+                    <p><strong>Stack:</strong> Gemini 2.5 Flash and the Gemini Live API on Vertex AI, FastAPI for the orchestrator and three specialist agents, Chart.js for AI-generated visualizations, and Google Cloud Run hosting all five services independently. The frontend is a single HTML file with no build toolchain.</p>
+                </div>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <span>&copy; <span id="year"></span> Morgan Waddington</span>
+                <span class="footer-links">
+                    <a href="./about.html">About</a>
+                    <a href="./contact.html">Contact</a>
+                </span>
+            </div>
+        </footer>
+
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+        </script>
+    </body>
+</html>

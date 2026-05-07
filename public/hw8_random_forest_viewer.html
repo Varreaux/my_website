@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bike Rental Demand with Random Forest Regression | Morgan Waddington</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/styles.css">
+    </head>
+    <body>
+        <header class="site-header">
+            <nav class="nav">
+                <a class="logo" href="../index.html">MW</a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#ai-ml">AI/ML</a></li>
+                    <li><a href="../index.html#game-design">Game Design</a></li>
+                    <li><a href="../index.html#data-viz">Data Visualization</a></li>
+                    <li><a href="../index.html#cloud">Cloud (AWS)</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="back-link-wrap">
+            <a class="back-link" href="./ai-ml.html"><span class="arrow">&larr;</span> Back to AI/ML</a>
+        </div>
+
+        <main class="section">
+            <div class="section-inner">
+                <h1 class="section-title">Bike Rental Demand with Random Forest Regression</h1>
+
+                <div class="project-content">
+                    <p>Seoul's public bike-sharing system records hourly rental counts alongside weather and calendar features: temperature, humidity, rainfall, snowfall, solar radiation, hour, season, and holiday flags. The question is whether a regression model can predict demand from those signals. I trained two models on the same train/validation/test split: ordinary linear regression and a random forest of 100 trees. Linear regression scores R² = 0.54 on the test set, only about half the variance explained. The same pipeline with random forest jumps to R² = 0.86. The reason sits in the features themselves. Most of them are not linearly related to bike count. Demand peaks twice a day around commute hours, follows a temperature sweet spot rather than rising forever, and responds in step-function fashion to rain and to functioning vs non-functioning days. A single line through the data can't bend that way. An ensemble of trees can.</p>
+
+                    <h2 class="subhead">Try it</h2>
+                    <p>The 1D playground below makes the gap visible. Pick a feature pattern and the demo trains both models live on noisy samples drawn from that ground truth. The dashed gray line is the true relationship; the purple line is the linear fit; the teal curve is the random forest's averaged prediction. On the linear preset the two models almost agree. On the others, the line stays flat-footed while the ensemble traces the bends. Slide the trees count to see how a small forest already smooths out a noisy single tree, and slide max depth to watch the forest gain or lose the ability to capture sharp peaks.</p>
+
+                    <div class="rf-demo">
+                        <div class="rf-controls">
+                            <div class="rf-control-row">
+                                <span class="astar-label">Pattern:</span>
+                                <button class="astar-btn ghost" data-rf-preset="hour">Hour of day</button>
+                                <button class="astar-btn ghost" data-rf-preset="temperature">Temperature</button>
+                                <button class="astar-btn ghost" data-rf-preset="linear">Linear</button>
+                                <button class="astar-btn ghost" data-rf-preset="step">Day of week</button>
+                            </div>
+                            <div class="rf-control-row">
+                                <label class="astar-slider">
+                                    <span>Trees: <strong id="rf-trees-val">30</strong></span>
+                                    <input id="rf-trees" type="range" min="1" max="60" step="1" value="30">
+                                </label>
+                                <label class="astar-slider">
+                                    <span>Max depth: <strong id="rf-depth-val">5</strong></span>
+                                    <input id="rf-depth" type="range" min="1" max="10" step="1" value="5">
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="rf-canvas-wrap">
+                            <canvas id="rf-canvas"></canvas>
+                        </div>
+
+                        <div class="rf-meta">
+                            <div class="rf-legend">
+                                <span class="rf-swatch rf-swatch-point"></span> Training data
+                                <span class="rf-swatch rf-swatch-truth"></span> Ground truth
+                                <span class="rf-swatch rf-swatch-linear"></span> Linear regression
+                                <span class="rf-swatch rf-swatch-forest"></span> Random forest
+                            </div>
+                            <div class="rf-stats" id="rf-stats">Loading...</div>
+                        </div>
+                    </div>
+
+                    <h2 class="subhead">Full notebook</h2>
+
+                    <details class="pd-notebook" open>
+                        <summary><span class="pd-toggle-show">Show notebook</span><span class="pd-toggle-hide">Hide notebook</span></summary>
+                        <div class="pd-notebook-frame">
+                            <iframe src="./hw8_random_forest.html" title="Bike rental demand with random forest regression notebook"></iframe>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <span>&copy; <span id="year"></span> Morgan Waddington</span>
+                <span class="footer-links">
+                    <a href="./about.html">About</a>
+                    <a href="./contact.html">Contact</a>
+                </span>
+            </div>
+        </footer>
+
+        <script src="../assets/rf-demo.js"></script>
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+        </script>
+    </body>
+</html>

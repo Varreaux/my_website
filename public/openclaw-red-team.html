@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Red-Teaming AI Agents on OpenClaw | Morgan Waddington</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/styles.css">
+    </head>
+    <body>
+        <header class="site-header">
+            <nav class="nav">
+                <a class="logo" href="../index.html">MW</a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#ai-ml">AI/ML</a></li>
+                    <li><a href="../index.html#game-design">Game Design</a></li>
+                    <li><a href="../index.html#data-viz">Data Visualization</a></li>
+                    <li><a href="../index.html#cloud">Cloud (AWS)</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="back-link-wrap">
+            <a class="back-link" href="./ai-ml.html"><span class="arrow">&larr;</span> Back to AI/ML</a>
+        </div>
+
+        <main class="section">
+            <div class="section-inner">
+                <h1 class="section-title">Red-Teaming AI Agents on OpenClaw</h1>
+                <p class="section-lead">An adversarial dashboard that probes a live agent for prompt-injection weaknesses.</p>
+
+                <div class="project-content">
+                    <p style="margin-bottom: 24px;">If you want to dig into the code, the whole project is up on my <a href="https://github.com/Varreaux/Personalized-Agents-Hackathon" target="_blank" rel="noopener noreferrer" style="color: var(--brand); text-decoration: underline;">GitHub</a>.</p>
+
+                    <div class="video-container" style="margin-bottom: 32px;">
+                        <video controls width="100%" style="max-width: 100%; border-radius: 14px; box-shadow: 0 10px 24px rgba(0,0,0,0.1);">
+                            <source src="../assets/videos/foreclosure-defender-demo.mov" type="video/quicktime">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+
+                    <p>Live AI agents that touch sensitive data are a fast-growing attack surface. If an agent is wired up to confidential records, can it be coaxed into leaking them, abandoning its instructions, or following a stranger's commands instead of the operator's? This project is a red-team harness for putting that question to the test against an agent running on Lightning AI's OpenClaw gateway. The demo scenario is a fictional housing-assistance organization whose AI assistant has access to client mortgage records, but the same harness would work against any OpenClaw-hosted agent.</p>
+
+                    <p>The dashboard fires categorized attacks at the agent over a single click: social engineering and role-override claims, chain-of-thought elicitation, tool-use manipulation, censorship-rewrite requests, and prompt injections embedded in content that looks like user data. Each attack runs in its own session so the agent has no memory of previous tries. Responses are scored against a refusal-keyword list and labeled BLOCKED, BYPASSED, or ERROR, and a live attack flow animates each hit in real time so you can watch the agent hold or fold round by round.</p>
+
+                    <p>The backend is FastAPI talking to OpenClaw over WebSocket with Ed25519 device authentication, and the frontend is vanilla HTML, CSS, and JavaScript with no framework dependencies. The keyword-based scorer has a known limitation worth flagging: it catches refusals expressed in conventional language but mislabels assertive or reframing refusals as bypasses, where the agent says something like "I don't have safety filters to disable" rather than "I can't disable safety filters." Swapping the keyword scorer for an LLM judge that evaluates semantic compliance is the natural next iteration.</p>
+                </div>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <span>&copy; <span id="year"></span> Morgan Waddington</span>
+                <span class="footer-links">
+                    <a href="./about.html">About</a>
+                    <a href="./contact.html">Contact</a>
+                </span>
+            </div>
+        </footer>
+
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+        </script>
+    </body>
+</html>
